@@ -3,7 +3,32 @@ import planetsContext from '../context/planetsContext';
 // import PropTypes from 'prop-types';
 
 function Table() {
-  const { planets, filterByName } = useContext(planetsContext);
+  const { planets, filterByName, filterByNumericValues } = useContext(planetsContext);
+
+  const filterMenager = (planet) => {
+    const conditions = filterByNumericValues.map((condition) => {
+      const { column, comparison, value } = condition;
+      let result;
+      const numberValue = parseInt(value, 10);
+      if (comparison === 'maior que') {
+        result = planet[column] > numberValue;
+      } else if (comparison === 'menor que') {
+        result = planet[column] < numberValue;
+      } else {
+        const convertedValue = parseInt(planet[column], 10);
+        result = convertedValue === numberValue;
+      }
+
+      return result;
+    });
+
+    const allConditions = [
+      planet.name.includes(filterByName.name),
+      ...conditions,
+    ];
+
+    return allConditions.every((condition) => condition);
+  };
 
   return (
     <table>
@@ -25,7 +50,7 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        {planets.filter((planet) => planet.name.includes(filterByName.name))
+        {planets.filter((planet) => filterMenager(planet))
           .map((planet) => {
             const {
               name,

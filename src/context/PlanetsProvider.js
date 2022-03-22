@@ -6,6 +6,14 @@ import getPlanets from '../services/getPlanets';
 const PlanetsProvider = ({ children }) => {
   const [planets, setPlanets] = useState([]);
   const [name, setName] = useState('');
+  const [columnOptions, setColumnOptions] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
+  const [filters, setFilters] = useState([]);
 
   useEffect(() => {
     const savePlanetList = async () => {
@@ -19,12 +27,20 @@ const PlanetsProvider = ({ children }) => {
     setName(newName);
   };
 
+  const setNewFilter = (newFilter) => {
+    setFilters([...filters, newFilter]);
+  };
+
   return (
     <planetsContext.Provider
       value={ {
         planets,
         filterByName: { name },
+        filterByNumericValues: filters,
+        columnOptions,
         changeNameFilter,
+        setColumnOptions,
+        setNewFilter,
       } }
     >
       {children}

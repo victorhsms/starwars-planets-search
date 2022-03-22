@@ -7,7 +7,7 @@ function Select(props) {
     <label htmlFor={ id }>
       {message}
       <select
-        data-test-id={ id }
+        data-testid={ id }
         id={ id }
         value={ value }
         onChange={ onChange }
