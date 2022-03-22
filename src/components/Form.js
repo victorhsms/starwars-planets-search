@@ -25,10 +25,6 @@ function Form() {
 
     setNewFilter(filters);
 
-    console.log(columnOptions.filter((options) => (
-      columnFilter !== options
-    )));
-
     setNewColumnOptions(
       columnOptions.filter((options) => (
         columnFilter !== options
