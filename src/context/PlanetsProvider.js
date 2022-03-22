@@ -5,6 +5,7 @@ import getPlanets from '../services/getPlanets';
 
 const PlanetsProvider = ({ children }) => {
   const [planets, setPlanets] = useState([]);
+  const [name, setName] = useState('');
 
   useEffect(() => {
     const savePlanetList = async () => {
@@ -13,8 +14,19 @@ const PlanetsProvider = ({ children }) => {
     };
     savePlanetList();
   }, []);
+
+  const changeNameFilter = (newName) => {
+    setName(newName);
+  };
+
   return (
-    <planetsContext.Provider value={ { planets } }>
+    <planetsContext.Provider
+      value={ {
+        planets,
+        filterByName: { name },
+        changeNameFilter,
+      } }
+    >
       {children}
     </planetsContext.Provider>
   );

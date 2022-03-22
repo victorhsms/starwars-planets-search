@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 // import PropTypes from 'prop-types';
+import planetsContext from '../context/planetsContext';
 import Input from './Input';
 
 function Header() {
   const [nameSearch, setNameSearch] = useState('');
+
+  const { changeNameFilter } = useContext(planetsContext);
+
+  const handleChange = ({ target }) => {
+    setNameSearch(target.value);
+    changeNameFilter(target.value);
+  };
 
   return (
     <header>
@@ -13,7 +21,7 @@ function Header() {
         message=""
         id="name-filter"
         value={ nameSearch }
-        onChange={ ({ target }) => setNameSearch(target.value) }
+        onChange={ handleChange }
       />
     </header>
   );

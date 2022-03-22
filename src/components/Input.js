@@ -9,6 +9,7 @@ function Input(props) {
       <input
         type={ type }
         id={ id }
+        data-testid={ id }
         value={ value }
         onChange={ onChange }
       />

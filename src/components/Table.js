@@ -3,7 +3,7 @@ import planetsContext from '../context/planetsContext';
 // import PropTypes from 'prop-types';
 
 function Table() {
-  const { planets } = useContext(planetsContext);
+  const { planets, filterByName } = useContext(planetsContext);
 
   return (
     <table>
@@ -25,40 +25,41 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        {planets.map((planet) => {
-          const {
-            name,
-            rotation_period: rotationPeriod,
-            orbital_period: orbitalPeriod,
-            diameter,
-            climate,
-            gravity,
-            terrain,
-            surface_water: surfaceWater,
-            population,
-            films,
-            created,
-            edited,
-            url,
-          } = planet;
-          return (
-            <tr key={ name }>
-              <td>{ name }</td>
-              <td>{ rotationPeriod }</td>
-              <td>{ orbitalPeriod }</td>
-              <td>{ diameter }</td>
-              <td>{ climate }</td>
-              <td>{ gravity }</td>
-              <td>{ terrain }</td>
-              <td>{ surfaceWater }</td>
-              <td>{ population }</td>
-              <td>{ films }</td>
-              <td>{ created }</td>
-              <td>{ edited }</td>
-              <td>{ url }</td>
-            </tr>
-          );
-        })}
+        {planets.filter((planet) => planet.name.includes(filterByName.name))
+          .map((planet) => {
+            const {
+              name,
+              rotation_period: rotationPeriod,
+              orbital_period: orbitalPeriod,
+              diameter,
+              climate,
+              gravity,
+              terrain,
+              surface_water: surfaceWater,
+              population,
+              films,
+              created,
+              edited,
+              url,
+            } = planet;
+            return (
+              <tr key={ name }>
+                <td>{ name }</td>
+                <td>{ rotationPeriod }</td>
+                <td>{ orbitalPeriod }</td>
+                <td>{ diameter }</td>
+                <td>{ climate }</td>
+                <td>{ gravity }</td>
+                <td>{ terrain }</td>
+                <td>{ surfaceWater }</td>
+                <td>{ population }</td>
+                <td>{ films }</td>
+                <td>{ created }</td>
+                <td>{ edited }</td>
+                <td>{ url }</td>
+              </tr>
+            );
+          })}
       </tbody>
     </table>
   );
