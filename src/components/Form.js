@@ -5,7 +5,11 @@ import Select from './Select';
 // import PropTypes from 'prop-types';
 
 function Form() {
-  const { columnOptions, setNewFilter } = useContext(planetsContext);
+  const {
+    setNewFilter,
+    columnOptions,
+    setNewColumnOptions,
+  } = useContext(planetsContext);
   const [columnFilter, setColumnFilter] = useState(columnOptions[0]);
   const [operator, setOperatorFilter] = useState('maior que');
   const [number, setNumber] = useState(0);
@@ -20,6 +24,16 @@ function Form() {
     };
 
     setNewFilter(filters);
+
+    console.log(columnOptions.filter((options) => (
+      columnFilter !== options
+    )));
+
+    setNewColumnOptions(
+      columnOptions.filter((options) => (
+        columnFilter !== options
+      )),
+    );
 
     setColumnFilter(columnOptions[0]);
     setOperatorFilter('maior que');
